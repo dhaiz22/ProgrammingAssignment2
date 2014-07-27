@@ -11,14 +11,14 @@ im<-NULL
 ## set the matrix
 set<-function(matrix){
 
-        mtx<<-matrix
+        m<<-matrix
         im<<-NULL
 }
 
 ## get the matrix
 get<-function(){
         ##return the matrix
-        mtx
+        m
 }
 
 ## set the inverse of the matrix
@@ -27,7 +27,7 @@ setInverse <-function(inverse){
 }
 
 ## get the inverse of the matrix
-getInverse <-function(inverse){
+getInverse <-function(){
             ##return the inverse property
            im
 }
@@ -43,17 +43,18 @@ getInverse <-function(inverse){
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-        mtx<-x$getInverse()
+        m<-x$getInverse()
         
         ##in case of already there, return the value
-        if(!is.null(mtx)){
+        if(!is.null(m)){
                 message("data from cache")
-                return(mtx)
-        }
-        else{
-        mtx<-solve(x$get())
-        x$setInverse(mtx)
+                return(m)
+        } 
+        data <-x$get()
+	  ##calculate inverse
+        m<-solve(data)%*%data
+        x$setInverse(m)
         ##return the matrix
-        return(mtx)
-        }
+        m
+        
 }
